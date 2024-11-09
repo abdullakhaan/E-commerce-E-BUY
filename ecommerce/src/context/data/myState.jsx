@@ -1,147 +1,106 @@
-import React, { useEffect, useState } from "react";
-import MyContext from "./myContext";
-import { fireDB } from "../../firebase/FirebaseConfig";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  setDoc,
-  Timestamp,
-} from "firebase/firestore";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import MyContext from './myContext';
+import { fireDB } from '../../firebase/FirebaseConfig';
+import { Timestamp, addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
-function myState(props) {
-  const [mode, setMode] = useState("light");
+function MyState(props) {
+  const [mode, setMode] = useState('light');
   const [loading, setLoading] = useState(false);
-
-  const toggleMode = () => {
-    if (mode === "light") {
-      setMode("dark");
-      document.body.style.backgroundColor = "rgb(17, 24, 39)";
-    } else {
-      setMode("light");
-      document.body.style.backgroundColor = "white";
-    }
-  };
-
-  const [products, setProduct] = useState({
+  const [products, setProducts] = useState({
     title: null,
     price: null,
     imageUrl: null,
     category: null,
     description: null,
     time: Timestamp.now(),
-    date: new Date().toLocaleDateString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    }),
+    date: new Date().toLocaleString(
+      "en-US",
+      {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      }
+    ),
   });
 
-  //*****************     add product section********
+  const [product, setProduct] = useState([]);
+  const [orders, setOrders] = useState([]); // Renamed from `order` to `orders`
 
-  const addProduct = async () => {
-    if (
-      products.title == null ||
-      products.price == null ||
-      products.imageUrl == null ||
-      products.category == null ||
-      products.description == null
-    ) {
-      return toast.error("All fields are required");
-    }
-    const productRef = collection(fireDB, "products");
-    setLoading(true);
-    try {
-      await addDoc(productRef, products);
-      toast.success("Product added");
-      setTimeout(() => {
-        window.location.href = "/dashboard";
-      }, 800);
-
-      getProductData();
-      closeModal();
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-    setproduct("");
+  // Toggle mode (dark/light)
+  const toggleMode = () => {
+    setMode((prevMode) => {
+      const newMode = prevMode === 'light' ? 'dark' : 'light';
+      document.body.style.backgroundColor = newMode === 'dark' ? 'rgb(17, 24, 39)' : 'white';
+      return newMode;
+    });
   };
 
-  const [product, setproduct] = useState([]);
+  // Fetch orders from Firestore
+  const getOrderData = async () => {
+    setLoading(true);
+    try {
+      const result = await getDocs(collection(fireDB, "orders"));
+      const ordersArray = [];
+      result.forEach((doc) => {
+        ordersArray.push({ ...doc.data(), id: doc.id });
+      });
+      setOrders(ordersArray); // Updated to set `orders`
+      console.log('Fetched Orders:', ordersArray);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      setLoading(false);
+    }
+  };
 
-  // *************GET PRODUCT****************
-
+  // Fetch products from Firestore
   const getProductData = async () => {
     setLoading(true);
     try {
       const q = query(collection(fireDB, "products"), orderBy("time"));
-
-      const data = onSnapshot(q, (QuerySnapshot) => {
-        let productsArray = [];
-        QuerySnapshot.forEach((doc) => {
-          productsArray.push({ ...doc.data(), id: doc.id });
-        });
-
-        setproduct(productsArray);
+      onSnapshot(q, (querySnapshot) => {
+        const productsArray = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        setProduct(productsArray);
         setLoading(false);
       });
-      return () => data;
     } catch (error) {
-      console.log(error);
+      console.error('Error fetching products:', error);
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    getProductData();
-  }, []);
+  const [users, setUsers] = useState([]);
 
-  // ************** update product function **********
-  const edithandle = (item) => {
-    setProduct(item);
-  };
-
-  const updateProduct = async () => {
+  const getUserData = async () => {
     setLoading(true)
     try {
-      await setDoc(doc(fireDB, 'products', products.id), products);
-    toast.success("Product Updated")
-  setTimeout(() => {
-      window.location.href = '/dashboard'
-  }, 800);
-    getProductData();
-  
-    setLoading(false)
-
+      const result = await getDocs(collection(fireDB, "users"))
+      const userArray = [];
+      result.forEach((doc) => {
+      userArray.push(doc.data());
+      setLoading(false) 
+      });
+      setUsers(userArray);
+      setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false)
       
+      
     }
-  };
-
-  // ****************** delete product *******************
-
-  const deleteProduct = async (item) => {
-    setLoading(true)
-   try {
-    await deleteDoc(doc(fireDB, 'products', item.id));
-    toast.success("Product Deleted")
-    getProductData();
-    setLoading(false)
-    
-   } catch (error) {
-    console.log(error);
-    setLoading(false)
-   }
-
   }
+
+  // Initialize data on component mount
+  useEffect(() => {
+    getProductData();
+    getOrderData();
+    getUserData();
+  }, []);
+
+  const [searchkey, setSearchkey] = useState('')
+  const [filterType, setFilterType] = useState('')
+  const [filterPrice, setFilterPrice] = useState('')
 
   return (
     <MyContext.Provider
@@ -151,16 +110,18 @@ function myState(props) {
         loading,
         setLoading,
         products,
-        setProduct,
-        addProduct,
+        setProducts,
         product,
-        edithandle,
-        updateProduct,
-        deleteProduct
+        orders, // Renamed from `order` to `orders`
+      users, 
+      searchkey, setSearchkey,
+      filterType, setFilterType,
+      filterPrice, setFilterPrice,
       }}
     >
       {props.children}
     </MyContext.Provider>
   );
 }
-export default myState;
+
+export default MyState;

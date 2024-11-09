@@ -68,17 +68,17 @@ function Cart() {
         day: "2-digit",
         year: "numeric",
       }),
-      email: JSON.parse(localStorage.getItem("user"))?.user?.email || "guest",
-      userid: JSON.parse(localStorage.getItem("user"))?.user?.uid || "anonymous",
+      email: JSON.parse(localStorage.getItem("user"))?.user.email, 
+      userid: JSON.parse(localStorage.getItem("user"))?.user.uid ,
     };
 
     try {
-      const orderRef = collection(fireDB, "orders");
+      const orderRef = collection(fireDB,  "orders");
       await addDoc(orderRef, orderInfo);
 
       toast.success("Order placed successfully", {
         position: "top-center",
-        autoClose: 1500,
+        autoClose: 1000,
       });
     } catch (error) {
       console.error("Error adding document: ", error);
