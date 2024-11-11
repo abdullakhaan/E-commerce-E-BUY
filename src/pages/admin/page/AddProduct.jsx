@@ -4,7 +4,7 @@ import { Description } from "@headlessui/react";
 
 function AddProduct() {
   const context = useContext(myContext);
-  const { products, setProduct, addProduct} = context;
+  const { products, setProducts, addProduct} = context;
 
 
   return (
@@ -19,7 +19,7 @@ function AddProduct() {
           <div>
             <input type="text"
             value={products.title}
-            onChange={(e)=> setProduct({...products, title: e.target.value})}
+            onChange={(e)=> setProducts({...products, title: e.target.value})}
               name="title"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product title"
@@ -28,7 +28,7 @@ function AddProduct() {
           <div> 
             <input type="text"
               value={products.price}
-              onChange={(e)=> setProduct({...products, price: e.target.value})}
+              onChange={(e)=> setProducts({...products, price: e.target.value})}
               name="price"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product price"
@@ -37,7 +37,7 @@ function AddProduct() {
           <div>
             <input type="text"
               value={products.imageUrl}
-              onChange={(e)=> setProduct({...products, imageUrl: e.target.value})}
+              onChange={(e)=> setProducts({...products, imageUrl: e.target.value})}
               name="imageurl"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product imageUrl"
@@ -47,7 +47,7 @@ function AddProduct() {
             <input
               type="text"
               value={products.category}
-              onChange={(e)=> setProduct({...products, category: e.target.value})}
+              onChange={(e)=> setProducts({...products, category: e.target.value})}
               name="category"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product category"
@@ -59,7 +59,7 @@ function AddProduct() {
               rows="10"
               name="title"
               value={products.description}
-              onChange={(e)=> setProduct({...products, description: e.target.value})}
+              onChange={(e)=> setProducts({...products, description: e.target.value})}
 
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product Description"

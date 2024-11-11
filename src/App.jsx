@@ -26,7 +26,9 @@ function App() {
     <MyState>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
+
+          <Route path ="/home" element={<Home />} />
 
           <Route path="/allproducts" element={<Allproducts/>}/>
 

@@ -3,7 +3,7 @@ import myContext from '../../../context/data/myContext';
 
 function UpdateProduct() {
     const context = useContext(myContext);
-    const { products, setProduct, updateProduct} = context;
+    const { products, setProducts, updateProduct} = context;
 
     return (
         <div>
@@ -15,7 +15,7 @@ function UpdateProduct() {
                     <div>
             <input type="text"
             value={products.title}
-            onChange={(e)=> setProduct({...products, title: e.target.value})}
+            onChange={(e)=> setProducts({...products, title: e.target.value})}
               name="title"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product title"
@@ -24,7 +24,7 @@ function UpdateProduct() {
           <div> 
             <input type="text"
               value={products.price}
-              onChange={(e)=> setProduct({...products, price: e.target.value})}
+              onChange={(e)=> setProducts({...products, price: e.target.value})}
               name="price"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product price"
@@ -33,7 +33,7 @@ function UpdateProduct() {
           <div>
             <input type="text"
               value={products.imageUrl}
-              onChange={(e)=> setProduct({...products, imageUrl: e.target.value})}
+              onChange={(e)=> setProducts({...products, imageUrl: e.target.value})}
               name="imageurl"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product imageUrl"
@@ -43,7 +43,7 @@ function UpdateProduct() {
             <input
               type="text"
               value={products.category}
-              onChange={(e)=> setProduct({...products, category: e.target.value})}
+              onChange={(e)=> setProducts({...products, category: e.target.value})}
               name="category"
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product category"
@@ -55,7 +55,7 @@ function UpdateProduct() {
               rows="10"
               name="title"
               value={products.description}
-              onChange={(e)=> setProduct({...products, description: e.target.value})}
+              onChange={(e)=> setProducts({...products, description: e.target.value})}
 
               className=" bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none"
               placeholder="Product Description"

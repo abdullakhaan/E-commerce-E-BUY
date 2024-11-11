@@ -21,7 +21,7 @@ function Login() {
       const result = await signInWithEmailAndPassword(auth, email, password)
       toast.success("Login Successful")
       localStorage.setItem('user', JSON.stringify(result))
-      navigate('/')
+      navigate('/home')
       setLoading(false)
 
 

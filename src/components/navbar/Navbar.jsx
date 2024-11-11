@@ -86,7 +86,7 @@ export default function Navbar() {
                   </div> : ""}
 
                   <div className="flow-root">
-                    <Link to={'/'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
+                    <Link to={'/home'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
                       <img
                         className="inline-block w-10 h-10 rounded-full"
                         src="https://tse3.mm.bing.net/th?id=OIP.l7DaOZRhOt_UY_Ul_vRrkAHaHa&pid=Api&P=0&h=220"
@@ -134,7 +134,7 @@ export default function Navbar() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                <Link to={'/'} className='flex'>
+                <Link to={'/home'} className='flex'>
                   <div className="flex ">
                     <h1 className=' text-2xl font-bold text-black  px-2 py-1 rounded' style={{ color: mode === 'dark' ? 'white' : '', }}>E-Buy</h1>
                   </div>
