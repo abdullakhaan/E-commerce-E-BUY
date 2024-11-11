@@ -59,17 +59,17 @@ export default function Footer() {
             </div>
 
             <div className="bg-gray-200" style={{ backgroundColor: mode === 'dark' ? 'rgb(55 57 61)' : '', color: mode === 'dark' ? 'white' : '', }}>
-                <div className="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
-                    <Link to={'/'} className='flex'>
+                <div className="container px-4 py-3 mx-auto flex items-center sm:flex-row flex-col">
+                    <Link to={'/home'} className='flex'>
                         <div className="flex ">
                             <h1 className=' text-2xl font-bold text-black  px-2 py-1 rounded' style={{ color: mode === 'dark' ? 'white' : '', }}>E-Buy</h1>
                         </div>
                     </Link>
-                    <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>© 2024 E-Buy —
-                        <a href="https://facebook.com/" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank" style={{ color: mode === 'dark' ? 'white' : '' }}>www.ebuy.com</a>
+                    <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                        <a href="https://facebook.com/" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank" style={{ color: mode === 'dark' ? 'white' : '' }}>www.ebuy4u.netlify.app</a>
                     </p>
 
-                    <p className="text-sm text-gray-600 px-60 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>Developed by
+                    <p className="text-sm text-gray-600  sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>Developed by
                         <a href="https://github.com/abdullakhaan"  rel="noopener noreferrer" className="text-gray-800 ml-1" target="_blank" style={{ color: mode === 'dark' ? 'white' : '' }}>Muhammad Abdullah Khan</a>
                     </p>
 
